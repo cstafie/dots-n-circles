@@ -38,7 +38,7 @@ export default function sketch(s: p5) {
 
         s.fill(c2);
         s.circle(
-          x * UNIT * 2 + (y % 2 ? 0 : UNIT) + mouseX,
+          x * UNIT * 2 + (y % 2 ? 0 : UNIT) + mouseX + UNIT,
           y * OFFSET + mouseY,
           UNIT * 2
         );
