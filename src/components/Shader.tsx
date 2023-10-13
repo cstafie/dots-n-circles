@@ -9,6 +9,8 @@ export default function Shader() {
   // const [sketchCreated, setSketchCreated] = useState(false);
   const shaderRef = useRef<Canvas | null>(null);
 
+  const [scaleOpacity, setScaleOpacity] = useState(false);
+
   const [points, setPoints] = useState<Point[]>([]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -23,7 +25,7 @@ export default function Shader() {
     const options = {
       // vertexString: `...`,
       fragmentString: generateShader(points, {
-        scaleOpacity: true,
+        scaleOpacity,
       }),
       alpha: false,
       antialias: true,
@@ -33,13 +35,22 @@ export default function Shader() {
 
     if (canvasRef.current)
       shaderRef.current = new Canvas(canvasRef.current, options);
-  }, [canvasRef, points]);
+  }, [canvasRef, points, scaleOpacity]);
 
   return (
-    <canvas
-      onClick={handleClick}
-      className="shader-canvas"
-      ref={canvasRef}
-    ></canvas>
+    <>
+      <button
+        style={{ position: "fixed" }}
+        onClick={() => setScaleOpacity((so) => !so)}
+      >
+        {" "}
+        opacity{" "}
+      </button>
+      <canvas
+        onClick={handleClick}
+        className="shader-canvas"
+        ref={canvasRef}
+      ></canvas>
+    </>
   );
 }
