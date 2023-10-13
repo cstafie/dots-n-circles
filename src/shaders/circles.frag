@@ -2,33 +2,47 @@
 precision mediump float;
 #endif
 
+#define radius 100.
+#define pointSize 5.
+#define root3 sqrt(3.)
 
-#define r 100.0
-#define PI 3.14159265359
-#define root3 sqrt(3.0)
+#define p1 vec2(100.,100.)
+#define p2 vec2(200.,100.+root3)
 
-#define p1 vec2(100.0, 100.0)
-
-uniform vec2 u_resolution; 
+uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse;
 
-float circle(vec2 a) {
-   vec2 b = mod(a, vec2(2.0, 2.0 * root3));
-
-  return step(1.0, distance(b, vec2(0.0))) * 
-  step(1.0, distance(b, vec2(0.0, 2.0 * root3))) *  
-   step(1.0, distance(b, vec2(1.0, root3))) *
-   step(1.0, distance(b, vec2(2.0, 0.0))) *
-   step(1.0, distance(b, vec2(2.0, 2.0 * root3)));
+float circle(vec2 a){
+   vec2 b=mod(a,vec2(2.,2.*root3));
+   
+   return step(1.,distance(b,vec2(0.)))*
+      step(1.,distance(b,vec2(0.,2.*root3)))*
+      step(1.,distance(b,vec2(1.,root3)))*
+      step(1.,distance(b,vec2(2.,0.)))*
+      step(1.,distance(b,vec2(2.,2.*root3)));
 }
 
-void main() {
-	vec3 colour = vec3(1.0, 0.0, 0.0);
+float point(vec2 center,vec2 p){
+   return step(distance(center,p),pointSize);
+}
 
-	float mc = circle((gl_FragCoord.xy - vec2(u_time * 100.0)) / r);
+void main(){
+   float circles=
+   circle((gl_FragCoord.xy-p1)/radius)+
+   circle((gl_FragCoord.xy-p2)/radius)+
+   circle((gl_FragCoord.xy-u_mouse)/radius);
+   
+   float points=
+   point(p1,gl_FragCoord.xy)+
+   point(p2,gl_FragCoord.xy)+
+   point(u_mouse,gl_FragCoord.xy);
+   
+   vec3 circlesColor=circles*vec3(1.,0.,0.);
+   vec3 pointsColor=points*vec3(.0667,.7725,.7725);
 
-	colour =  mc * colour;
-
-	gl_FragColor = vec4(colour, 1.0);
+   // setting
+   circlesColor /= 10.0;
+   
+   gl_FragColor=vec4(circlesColor+pointsColor,1.);
 }
