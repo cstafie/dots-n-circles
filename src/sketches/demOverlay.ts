@@ -1,7 +1,7 @@
 import p5 from "p5";
 import { randomColor } from "../utils";
 
-const UNIT = 32;
+const UNIT = 64;
 
 const OFFSET = Math.sqrt(3) * UNIT;
 
@@ -21,6 +21,8 @@ export default function sketch(s: p5) {
   const c1 = [...randomColor(s), 50];
   const c2 = [...randomColor(s), 50];
 
+  // const drawLattice = (startX, startY) => {};
+
   s.draw = () => {
     const { windowWidth, windowHeight, mouseX, mouseY } = s;
 
@@ -28,8 +30,8 @@ export default function sketch(s: p5) {
     // s.stroke("white");
     s.strokeWeight(0);
 
-    const width = Math.ceil(windowWidth / UNIT / 2) + 1;
-    const height = Math.ceil(windowHeight / UNIT / 2) + 1;
+    const width = Math.ceil(windowWidth / (UNIT * 2)) + 1;
+    const height = Math.ceil(windowHeight / (UNIT * 2 - OFFSET)) + 1;
 
     for (let x = -width; x <= width; x++) {
       for (let y = -height; y <= height; y++) {
@@ -42,6 +44,8 @@ export default function sketch(s: p5) {
           y * OFFSET + mouseY,
           UNIT * 2
         );
+
+        // s.mouseClicked();
 
         // s.fill("blue");
         // s.circle(x * UNIT * 2 + (y % 2 ? 0 : UNIT), y * UNIT * 2, OFFSET);

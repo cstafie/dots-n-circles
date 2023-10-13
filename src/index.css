@@ -13,3 +13,13 @@ body {
   min-height: 100vh;
   max-height: 100vh;
 }
+
+.shader-canvas {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+.sketch-canvas-container {
+  min-height: 100vh;
+  max-height: 100vh;
+}

@@ -21,5 +21,7 @@ export default function Sketch({ sketch }: Props) {
     };
   }, [canvasRef, sketch]);
 
-  return <section style={{ height: "100vh" }} ref={canvasRef}></section>;
+  return (
+    <section className="sketch-canvas-container" ref={canvasRef}></section>
+  );
 }
