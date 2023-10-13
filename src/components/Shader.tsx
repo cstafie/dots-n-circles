@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Canvas } from "glsl-canvas-js";
+import { Canvas } from "glsl-canvas-js/dist/cjs/glsl";
 import { ContextMode } from "glsl-canvas-js/dist/cjs/context/context";
 import generateShader from "../shaders/circles";
 import { Point } from "../types";
